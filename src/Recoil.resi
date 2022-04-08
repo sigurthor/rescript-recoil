@@ -122,7 +122,10 @@ external atomFamilyWithEffectsFromRecoilValue: atomFamilyWithEffectsConfig<
 > => atomFamily<'parameter, readWrite<'value>> = "atomFamily"
 
 // Selector creation
-type getter = {get: 'value 'mode. t<'value, 'mode> => 'value}
+type getter = {
+  get: 'value 'mode. t<'value, 'mode> => 'value,
+  getCallback: 'value 'mode. t<'value, 'mode> => 'value,
+}
 
 type getterAndSetter = {
   get: 'value 'mode. t<'value, 'mode> => 'value,

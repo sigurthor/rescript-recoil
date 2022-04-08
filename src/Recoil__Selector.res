@@ -1,4 +1,5 @@
-type getter = {get: 'value 'mode. Recoil__Value.t<'value, 'mode> => 'value}
+type getter = {get: 'value 'mode. Recoil__Value.t<'value, 'mode> => 'value,
+getCallback: 'value 'mode. Recoil__Value.t<'value, 'mode> => 'value}
 
 type getterAndSetter = {
   get: 'value 'mode. Recoil__Value.t<'value, 'mode> => 'value,
