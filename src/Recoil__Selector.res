@@ -7,7 +7,7 @@ type getterAndSetterCallback = {
 type callbackReturn<'a> = 'a => unit
 type getter = {
   get: 'value 'mode. Recoil__Value.t<'value, 'mode> => 'value,
-  getCallback: 'a 'return. (getterAndSetterCallback => callbackReturn<'a>) => 'return,
+  getCallback: 'a 'return. (getterAndSetterCallback => callbackReturn<'a>) => callbackReturn<'a>,
 }
 
 type getterAndSetter = {

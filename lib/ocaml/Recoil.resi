@@ -132,7 +132,9 @@ type callbackReturn<'a> = 'a => unit
 // Selector creation
 type getter = {
   get: 'value 'mode. t<'value, 'mode> => 'value,
-  getCallback: 'a 'return. (getterAndSetterCallback => callbackReturn<'a>) => 'return,
+  getCallback: 'return. (getterAndSetterCallback => callbackReturn<'return>) => callbackReturn<
+    'return,
+  >,
 }
 
 type getterAndSetter = {
