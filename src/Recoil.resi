@@ -9,6 +9,9 @@ type t<'value, 'mode>
 type readOnly<'value> = t<'value, readOnlyMode>
 type readWrite<'value> = t<'value, readWriteMode>
 
+@unboxed
+type fn<'a> = Fn('a)
+
 // Utility function
 @module("recoil") external isRecoilValue: 'any => bool = "isRecoilValue"
 
@@ -121,20 +124,19 @@ external atomFamilyWithEffectsFromRecoilValue: atomFamilyWithEffectsConfig<
   t<'value, _>,
 > => atomFamily<'parameter, readWrite<'value>> = "atomFamily"
 
-type getterAndSetterCallback = {
-  get: 'value 'mode. t<'value, 'mode> => 'value,
+type callbackParam2 = {
   set: 'value. (readWrite<'value>, 'value => 'value) => unit,
   reset: 'value. readWrite<'value> => unit,
 }
 
-type callbackReturn<'a> = 'a => unit
+type callback2<'additionalArg, 'returnValue> = 'additionalArg => 'returnValue
 
 // Selector creation
 type getter = {
   get: 'value 'mode. t<'value, 'mode> => 'value,
-  getCallback: 'return. (getterAndSetterCallback => callbackReturn<'return>) => callbackReturn<
-    'return,
-  >,
+  getCallback: 'additionalArg 'returnValue. (
+    @uncurry (callbackParam2 => fn<callback2<'additionalArg, 'returnValue>>)
+  ) => callback2<'additionalArg, 'returnValue>,
 }
 
 type getterAndSetter = {
@@ -158,9 +160,6 @@ type selectorWithWriteConfig<'value> = {
   get: getter => 'value,
   set: setValue<'value>,
 }
-
-@unboxed
-type fn<'a> = Fn('a)
 
 type asyncSelectorConfig<'value> = {
   key: string,

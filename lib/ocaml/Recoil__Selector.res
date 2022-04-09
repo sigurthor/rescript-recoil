@@ -1,13 +1,25 @@
+
+@unboxed
+type fn<'a> = Fn('a)
 type getterAndSetterCallback = {
   get: 'value 'mode. Recoil__Value.t<'value, 'mode> => 'value,
   set: 'value. (Recoil__Value.readWrite<'value>, 'value => 'value) => unit,
   reset: 'value. Recoil__Value.readWrite<'value> => unit,
 }
 
-type callbackReturn<'a> = 'a => unit
+type callbackParam2 = {
+  set: 'value. (Recoil__Value.readWrite<'value>, 'value => 'value) => unit,
+  reset: 'value. Recoil__Value.readWrite<'value> => unit,
+}
+
+type callback2<'additionalArg, 'returnValue> = 'additionalArg => 'returnValue
+
+// Selector creation
 type getter = {
   get: 'value 'mode. Recoil__Value.t<'value, 'mode> => 'value,
-  getCallback: 'a 'return. (getterAndSetterCallback => callbackReturn<'a>) => callbackReturn<'a>,
+  getCallback: 'additionalArg 'returnValue. (
+    @uncurry (callbackParam2 => fn<callback2<'additionalArg, 'returnValue>>)
+  ) => callback2<'additionalArg, 'returnValue>,
 }
 
 type getterAndSetter = {
@@ -32,8 +44,6 @@ type selectorWithWriteConfig<'value> = {
   set: setValue<'value>,
 }
 
-@unboxed
-type fn<'a> = Fn('a)
 
 type asyncSelectorConfig<'value> = {
   key: string,
