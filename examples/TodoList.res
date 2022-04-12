@@ -32,6 +32,7 @@ let filteredTodoListState = Recoil.selector({
     | ShowAll => list
     }
   },
+  cachePolicy: None,
 })
 
 type stats = {
@@ -58,6 +59,7 @@ let todoListStatsState = Recoil.selector({
       percentCompleted: percentCompleted,
     }
   },
+  cachePolicy: None,
 })
 
 module TodoItemCreator = {

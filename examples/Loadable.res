@@ -23,6 +23,7 @@ let userState = Recoil.asyncSelector({
     let id = get(currentUserIdState)
     getUserMock(~id)
   },
+  cachePolicy: None,
 })
 
 module UserIdPicker = {
@@ -77,6 +78,7 @@ module UserCard = {
         })
         |> ignore
       )
+
       None
     }, [userLoadable])
 

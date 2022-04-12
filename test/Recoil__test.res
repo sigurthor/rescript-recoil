@@ -19,7 +19,9 @@ test("Recoil.selector", () => {
       let atom1 = get(atom2)
       atom1 + 1
     },
+    cachePolicy: None,
   })
+
   isTrue(~message="Can create selector", Recoil.isRecoilValue(selector))
 })
 
@@ -209,6 +211,7 @@ let usernameSizeReadOnly = Recoil.selector({
     let username = get(username)
     username->Js.String.length
   },
+  cachePolicy: None,
 })
 
 module UseRecoilStateComponentWithSelector = {
@@ -392,6 +395,7 @@ let myAtomFamily = Recoil.atomFamily({
 let mySelectorFamily = Recoil.selectorFamily({
   key: "Test.SelectorFamily",
   get: param => Fn(({get}) => get(myAtomFamily(param)).name ++ ":Ok"),
+  cachePolicy: None,
 })
 
 module UseRecoilAtomSelectorComponent = {
